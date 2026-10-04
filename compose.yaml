@@ -1,0 +1,41 @@
+# Airwise demo stack (production build, Slim defaults). No secrets are needed.
+#   docker compose up -d --wait      http://127.0.0.1:8102
+# Offline demo without any provider calls: AIRWISE_PROVIDER_MODE=snapshot in .env (see docs/SLIM.md).
+name: airwise
+
+services:
+  app:
+    build: .
+    image: airwise:${IMAGE_TAG:-local}
+    environment:
+      AIRWISE_PROVIDER_MODE: ${AIRWISE_PROVIDER_MODE:-live}
+      AIRWISE_PROVIDER_BASE_URL: ${AIRWISE_PROVIDER_BASE_URL:-https://air-quality-api.open-meteo.com}
+      AIRWISE_FRESH_TTL_S: ${AIRWISE_FRESH_TTL_S:-1800}
+      AIRWISE_REFRESH_INTERVAL_S: ${AIRWISE_REFRESH_INTERVAL_S:-3600}
+      AIRWISE_DISPLAY_TIMEZONE: ${AIRWISE_DISPLAY_TIMEZONE:-Asia/Jerusalem}
+      AIRWISE_LOG_LEVEL: ${AIRWISE_LOG_LEVEL:-INFO}
+    ports:
+      - '127.0.0.1:8102:8000'
+    volumes:
+      - data:/data
+    # Needs outbound HTTPS to the provider in live mode, so it stays on the default bridge network.
+    restart: on-failure:3
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt: ['no-new-privileges:true']
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 192M
+          pids: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '2'
+
+volumes:
+  data:
