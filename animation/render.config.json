@@ -1,0 +1,8 @@
+{
+  "name": "airwise-film",
+  "root": "..",
+  "requireFrom": "web",
+  "posterAt": 12.4,
+  "previewFrom": 9.6,
+  "previewSeconds": 4
+}
