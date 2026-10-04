@@ -8,6 +8,18 @@ the European Air Quality Index for ten cities, with forecasts, from the open Ope
 **Specialisation shown:** integrating an external API and processing its data, with caching, failure handling
 and a small Python backend as supporting skills.
 
+## Product film
+
+[![Play the 20-second Airwise product film](docs/media/poster.jpg)](https://github.com/gad-rapaport/airwise/releases/download/v0.1.0/airwise-film.mp4)
+
+20 seconds, no sound needed: ten cities in one checked request, a chart drawn from the real snapshot, and saved
+data that stays labelled when the provider fails.
+[Download or play the MP4](https://github.com/gad-rapaport/airwise/releases/download/v0.1.0/airwise-film.mp4)
+(release asset; needs repository access while private). Rendered from [animation/](animation/):
+[brief](docs/ANIMATION-BRIEF.md), [storyboard](docs/ANIMATION-STORYBOARD.md), [rendering](docs/ANIMATION-RENDERING.md).
+
+![Looping preview: the chart lines drawing from real data](docs/media/preview.webp)
+
 ## What it does
 
 - Fetches all ten locations in **one** provider request, validates the response against a strict schema and
