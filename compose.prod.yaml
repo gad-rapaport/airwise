@@ -1,0 +1,10 @@
+# Overrides for a future public demo behind a TLS-terminating reverse proxy on the same host. Not used locally.
+#   IMAGE=ghcr.io/<owner>/airwise@sha256:... docker compose -f compose.yaml -f compose.prod.yaml up -d
+# Snapshot mode is the safer default for a public demo: visitors cannot trigger provider traffic.
+services:
+  app:
+    image: ${IMAGE:?IMAGE must be a pinned registry reference}
+    build: !reset null
+    environment:
+      AIRWISE_PROVIDER_MODE: ${AIRWISE_PROVIDER_MODE:-snapshot}
+      AIRWISE_LOG_LEVEL: INFO
